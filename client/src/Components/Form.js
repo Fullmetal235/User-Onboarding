@@ -16,40 +16,42 @@ import * as Yup from 'yup';
 
 // Tasks - Add two fields - size, notes. Don't forget to add them to the values in mPTV
 
-const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
-  const [animals, setAnimals] = useState([]);
-  console.log(animals);
+const Forms = ({ errors, touched, values, handleSubmit, status }) => {
+  const [person, setperson] = useState([]);
+  console.log(person);
 
   useEffect(() => {
     if (status) {
-      setAnimals([...animals, status]);
+      setperson([...person, status]);
     }
   }, [status]);
 
   return (
-    <div className="animal-form">
-      <h1>Animal Form</h1>
+    <div className="item-form">
+      <h1>Sign In</h1>
       <Form>
+      <Field type="text" name="Name" placeholder="Name" />
+        {touched.Name && errors.Name && (
+          <p className="error">{errors.Name}</p>
+        )}
+
+        <Field type="text" name="Email" placeholder="Email" />
+        {touched.Email && errors.Email && (
+          <p className="error">{errors.Email}</p>
+        )}
+
         <Field type="text" name="Password" placeholder="Password" />
         {touched.Password && errors.Password && (
           <p className="error">{errors.Password}</p>
         )}
 
-        <Field type="text" name="size" placeholder="Size" />
-        {touched.size && errors.size && <p className="error">{errors.size}</p>}
-
-        <Field component="select" className="Email-select" name="Email">
-          <option>Please Choose an Option</option>
-          <option value="herbivore">Herbivore</option>
-          <option value="carnivore">Carnivore</option>
-          <option value="omnivore">Omnivore</option>
-        </Field>
+        
 
         <label className="checkbox-container">
-          Name
+          I agree to terms and service
           <Field
             type="checkbox"
-            name="Name"
+            name="check"
             checked={values.Name}
           />
           <span className="checkmark" />
@@ -68,8 +70,8 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
         <button type="submit">Submit!</button>
       </Form>
 
-      {animals.map(animal => (
-        <p key={animal.id}>{animal.Password}</p>
+      {person.map(item => (
+        <p key={item.id}>{item.Password}</p>
       ))}
     </div>
   );
@@ -79,10 +81,10 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
 // Hard to share component / stateful logic (custom hooks)
 // Function that takes in a component, extends some logic onto that component,
 // returns a _new_ component (copy of the passed in component with the extended logic)
-const FormikAnimalForm = withFormik({
+const FormikForm = withFormik({
   mapPropsToValues({ Password, Email, Name }) {
     return {
-      Name: Name || false,
+      Name: Name || '',
       Email: Email || '',
       Password: Password || '',
      
@@ -102,6 +104,6 @@ const FormikAnimalForm = withFormik({
       })
       .catch(err => console.log(err.response));
   }
-})(AnimalForm); // currying functions in Javascript
+})(Forms); // currying functions in Javascript
 
-export default FormikAnimalForm;
+export default FormikForm;
