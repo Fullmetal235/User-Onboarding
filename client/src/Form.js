@@ -30,15 +30,15 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
     <div className="animal-form">
       <h1>Animal Form</h1>
       <Form>
-        <Field type="text" name="species" placeholder="Species" />
-        {touched.species && errors.species && (
-          <p className="error">{errors.species}</p>
+        <Field type="text" name="Password" placeholder="Password" />
+        {touched.Password && errors.Password && (
+          <p className="error">{errors.Password}</p>
         )}
 
         <Field type="text" name="size" placeholder="Size" />
         {touched.size && errors.size && <p className="error">{errors.size}</p>}
 
-        <Field component="select" className="food-select" name="food">
+        <Field component="select" className="Email-select" name="Email">
           <option>Please Choose an Option</option>
           <option value="herbivore">Herbivore</option>
           <option value="carnivore">Carnivore</option>
@@ -46,11 +46,11 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
         </Field>
 
         <label className="checkbox-container">
-          Vaccinations
+          Name
           <Field
             type="checkbox"
-            name="vaccinations"
-            checked={values.vaccinations}
+            name="Name"
+            checked={values.Name}
           />
           <span className="checkmark" />
         </label>
@@ -69,7 +69,7 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
       </Form>
 
       {animals.map(animal => (
-        <p key={animal.id}>{animal.species}</p>
+        <p key={animal.id}>{animal.Password}</p>
       ))}
     </div>
   );
@@ -80,18 +80,18 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
 // Function that takes in a component, extends some logic onto that component,
 // returns a _new_ component (copy of the passed in component with the extended logic)
 const FormikAnimalForm = withFormik({
-  mapPropsToValues({ species, size, notes, food, vaccinations }) {
+  mapPropsToValues({ Password, size, notes, Email, Name }) {
     return {
-      vaccinations: vaccinations || false,
-      food: food || '',
-      species: species || '',
+      Name: Name || false,
+      Email: Email || '',
+      Password: Password || '',
       size: size || '',
       notes: notes || ''
     };
   },
 
   validationSchema: Yup.object().shape({
-    species: Yup.string().required('You silly!!!'),
+    Password: Yup.string().required('You silly!!!'),
     size: Yup.string().required(),
     notes: Yup.string()
   }),
