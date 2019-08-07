@@ -80,20 +80,18 @@ const AnimalForm = ({ errors, touched, values, handleSubmit, status }) => {
 // Function that takes in a component, extends some logic onto that component,
 // returns a _new_ component (copy of the passed in component with the extended logic)
 const FormikAnimalForm = withFormik({
-  mapPropsToValues({ Password, size, notes, Email, Name }) {
+  mapPropsToValues({ Password, Email, Name }) {
     return {
       Name: Name || false,
       Email: Email || '',
       Password: Password || '',
-      size: size || '',
-      notes: notes || ''
+     
     };
   },
 
   validationSchema: Yup.object().shape({
     Password: Yup.string().required('You silly!!!'),
-    size: Yup.string().required(),
-    notes: Yup.string()
+    Email: Yup.string().required(),
   }),
 
   handleSubmit(values, { setStatus }) {
